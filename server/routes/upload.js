@@ -10,7 +10,7 @@ router.post('/', authenticate, upload.single('image'), async (req, res) => {
       return res.status(400).json({ success: false, message: 'No image file provided' });
     }
 
-    const imageUrl = `/uploads/${req.file.filename}`;
+    const imageUrl = req.file.path;
     const user = await User.findByIdAndUpdate(
       req.user.id,
       { profileImage: imageUrl },
