@@ -81,7 +81,7 @@ const DisasterDetail = () => {
         {disaster.image && (
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Photo Evidence</h3>
-            <img src={`${API_BASE}/uploads/${disaster.image}`} alt="Disaster" className="w-full max-w-md rounded-lg border border-gray-100 dark:border-gray-700" />
+            <img src={disaster.image} alt="Disaster" className="w-full max-w-md rounded-lg border border-gray-100 dark:border-gray-700" />
           </div>
         )}
 

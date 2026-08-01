@@ -94,7 +94,7 @@ const ReportDetail = () => {
         {report.image && (
           <div className="mt-4">
             <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Photo Evidence</h3>
-            <img src={`${API_BASE}/uploads/${report.image}`} alt="Disaster" className="w-full max-w-md rounded-lg border border-gray-100 dark:border-gray-700" />
+            <img src={report.image} alt="Disaster" className="w-full max-w-md rounded-lg border border-gray-100 dark:border-gray-700" />
           </div>
         )}
       </motion.div>

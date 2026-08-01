@@ -22,7 +22,7 @@ exports.createDisaster = async (req, res) => {
       address: address || '',
       peopleAffected: peopleAffected || 0,
       emergencyContact: emergencyContact || '',
-      image: req.file ? req.file.filename : ''
+      image: req.file ? req.file.path : ''
     });
 
     const admins = await User.find({ role: 'admin' });
