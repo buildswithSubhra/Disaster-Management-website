@@ -4,7 +4,7 @@ import { FaUser, FaEnvelope, FaPhone, FaSave, FaLock, FaCamera } from 'react-ico
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../services/api';
-import { API_BASE, getCloudinaryUrl } from '../../config';
+import { getCloudinaryUrl } from '../../config';
 
 const container = {
   hidden: { opacity: 0 },

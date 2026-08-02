@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { FaThLarge, FaExclamationTriangle, FaUsers, FaUserNinja, FaHospital, FaChartBar, FaBell, FaListAlt, FaUser, FaClipboardList, FaHome, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import { useSidebar } from './ui/sidebar';
-import { API_BASE, getCloudinaryUrl } from '../config';
+import { getCloudinaryUrl } from '../config';
 
 const SidebarContent = ({ onLinkClick }) => {
   const { isAdmin, isRescuer, user, logout } = useAuth();

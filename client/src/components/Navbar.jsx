@@ -7,7 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useSidebar } from './ui/sidebar';
 import NotificationPanel from './NotificationPanel';
 import notificationService from '../services/notificationService';
-import { API_BASE, getCloudinaryUrl } from '../config';
+import { getCloudinaryUrl } from '../config';
 
 const Navbar = ({ onMenuToggle }) => {
   const { user, logout, isAdmin, isRescuer } = useAuth();

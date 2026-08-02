@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import rescuerService from '../../services/rescuerService';
 import api from '../../services/api';
-import { API_BASE, getCloudinaryUrl } from '../../config';
+import { getCloudinaryUrl } from '../../config';
 
 const RescuerProfile = () => {
   const { user, updateProfile } = useAuth();
