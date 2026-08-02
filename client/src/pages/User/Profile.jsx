@@ -42,6 +42,7 @@ const UserProfile = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       const imageUrl = res.data.data.profileImage;
+      console.log('[PROFILE UPLOAD] imageUrl:', imageUrl, 'typeof:', typeof imageUrl);
       setPreview(imageUrl);
       await updateProfile({ profileImage: imageUrl });
       toast.success('Profile picture updated!');

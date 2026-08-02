@@ -87,6 +87,7 @@ exports.getProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found.' });
     }
+    console.log('[GET PROFILE] user.profileImage:', user.profileImage, 'typeof:', typeof user.profileImage);
     res.json({ success: true, data: user });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
