@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { FaArrowLeft, FaMapMarkerAlt, FaUser, FaPhone } from 'react-icons/fa';
 import disasterService from '../../services/disasterService';
-import { API_BASE } from '../../config';
 import SeverityBadge from '../../components/SeverityBadge';
 import StatusBadge from '../../components/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
