@@ -21,7 +21,7 @@ const RescuerProfile = () => {
     const file = e.target.files[0];
     if (!file) return;
     if (file.size > 5 * 1024 * 1024) return toast.error('Image must be less than 5MB');
-    if (!file.type.match(/image\/(jpeg|jpg|png|gif|webp)/)) return toast.error('Only image files allowed');
+    if (!file.type.startsWith('image/')) return toast.error('Only image files allowed');
 
     setUploading(true);
     const formDataImg = new FormData();
