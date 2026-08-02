@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { FaArrowLeft, FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
-import api from '../services/api';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,7 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await api.post('/contact', formData);
+      await emailjs.sendForm('service_5medr9b', 'template_3zlkn7n', form.current, 'zWem_bx03CXmDpkEr');
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -55,7 +56,7 @@ const Contact = () => {
               </motion.div>
             )}
 
-            <form onSubmit={handleSubmit} className="bg-navy-900/50 dark:bg-gray-800/50 border border-white/5 dark:border-gray-700 rounded-2xl p-8 space-y-5">
+            <form ref={form} onSubmit={handleSubmit} className="bg-navy-900/50 dark:bg-gray-800/50 border border-white/5 dark:border-gray-700 rounded-2xl p-8 space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-medium text-navy-300 mb-2">Name</label>
@@ -66,6 +67,7 @@ const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full bg-navy-800/50 dark:bg-gray-700/50 border border-white/10 dark:border-gray-600 rounded-xl px-4 py-3 text-sm text-white placeholder-navy-500 dark:placeholder-gray-400 focus:outline-none focus:border-white/20 dark:focus:border-gray-500 transition-colors"
                     placeholder="Your name"
+                    name="from_name"
                   />
                 </div>
                 <div>
@@ -77,6 +79,7 @@ const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full bg-navy-800/50 dark:bg-gray-700/50 border border-white/10 dark:border-gray-600 rounded-xl px-4 py-3 text-sm text-white placeholder-navy-500 dark:placeholder-gray-400 focus:outline-none focus:border-white/20 dark:focus:border-gray-500 transition-colors"
                     placeholder="you@example.com"
+                    name="from_email"
                   />
                 </div>
               </div>
@@ -89,6 +92,7 @@ const Contact = () => {
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   className="w-full bg-navy-800/50 dark:bg-gray-700/50 border border-white/10 dark:border-gray-600 rounded-xl px-4 py-3 text-sm text-white placeholder-navy-500 dark:placeholder-gray-400 focus:outline-none focus:border-white/20 dark:focus:border-gray-500 transition-colors"
                   placeholder="How can we help?"
+                  name="subject"
                 />
               </div>
               <div>
@@ -100,6 +104,7 @@ const Contact = () => {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full bg-navy-800/50 dark:bg-gray-700/50 border border-white/10 dark:border-gray-600 rounded-xl px-4 py-3 text-sm text-white placeholder-navy-500 dark:placeholder-gray-400 focus:outline-none focus:border-white/20 dark:focus:border-gray-500 transition-colors resize-none"
                   placeholder="Tell us more..."
+                  name="message"
                 />
               </div>
               <motion.button
