@@ -80,14 +80,15 @@ const MyReports = () => {
       </motion.div>
 
       <motion.div variants={item} className="card p-0 overflow-hidden">
-        <table className="w-full">
+        <div className="overflow-x-auto">
+        <table className="w-full min-w-[600px]">
           <thead className="bg-gray-50 dark:bg-gray-700/50">
             <tr>
               <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500">Title</th>
-              <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500">Type</th>
+              <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500 hidden sm:table-cell">Type</th>
               <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500">Severity</th>
               <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500">Status</th>
-              <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500">Date</th>
+              <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500 hidden md:table-cell">Date</th>
               <th className="px-6 py-3 text-left text-[10px] uppercase tracking-[0.15em] font-semibold text-gray-400 dark:text-gray-500">Actions</th>
             </tr>
           </thead>
@@ -103,10 +104,10 @@ const MyReports = () => {
                 className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <td className="px-6 py-4"><p className="text-sm font-medium text-gray-800 dark:text-gray-200">{r.title}</p><p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{r.address}</p></td>
-                <td className="px-6 py-4"><span className="text-sm capitalize text-gray-600 dark:text-gray-400">{r.type}</span></td>
+                <td className="px-6 py-4 hidden sm:table-cell"><span className="text-sm capitalize text-gray-600 dark:text-gray-400">{r.type}</span></td>
                 <td className="px-6 py-4"><SeverityBadge severity={r.severity} /></td>
                 <td className="px-6 py-4"><StatusBadge status={r.status} /></td>
-                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">{new Date(r.createdAt).toLocaleDateString()}</td>
+                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 hidden md:table-cell">{new Date(r.createdAt).toLocaleDateString()}</td>
                 <td className="px-6 py-4">
                   <button onClick={() => navigate(`/user/reports/${r.id || r._id}`)} className="p-2 text-navy-800 hover:bg-navy-50 rounded-lg transition-colors cursor-pointer">
                     <FaEye className="h-4 w-4" />
@@ -116,6 +117,7 @@ const MyReports = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </motion.div>
     </motion.div>
   );
