@@ -5,6 +5,7 @@ import disasterService from '../../services/disasterService';
 import SeverityBadge from '../../components/SeverityBadge';
 import StatusBadge from '../../components/StatusBadge';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { getCloudinaryUrl } from '../../config';
 
 const DisasterDetail = () => {
   const { id } = useParams();
@@ -80,7 +81,7 @@ const DisasterDetail = () => {
         {disaster.image && (
           <div className="mb-6">
             <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">Photo Evidence</h3>
-            <img src={disaster.image} alt="Disaster" className="w-full max-w-md rounded-lg border border-gray-100 dark:border-gray-700" />
+            <img src={getCloudinaryUrl(disaster.image)} alt="Disaster" className="w-full max-w-md rounded-lg border border-gray-100 dark:border-gray-700" />
           </div>
         )}
 

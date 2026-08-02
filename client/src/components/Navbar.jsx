@@ -7,7 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useSidebar } from './ui/sidebar';
 import NotificationPanel from './NotificationPanel';
 import notificationService from '../services/notificationService';
-import { API_BASE } from '../config';
+import { API_BASE, getCloudinaryUrl } from '../config';
 
 const Navbar = ({ onMenuToggle }) => {
   const { user, logout, isAdmin, isRescuer } = useAuth();
@@ -106,7 +106,7 @@ const Navbar = ({ onMenuToggle }) => {
               >
                 <div className="w-8 h-8 bg-navy-800 rounded-full flex items-center justify-center overflow-hidden">
                   {user?.profileImage ? (
-                    <img src={user.profileImage.startsWith('http') ? user.profileImage : `${API_BASE}${user.profileImage}`} alt="Profile" className="w-full h-full object-cover" />
+                    <img src={getCloudinaryUrl(user.profileImage)} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
                     <FaUser className="h-3.5 w-3.5 text-white" />
                   )}

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import rescuerService from '../../services/rescuerService';
 import api from '../../services/api';
-import { API_BASE } from '../../config';
+import { API_BASE, getCloudinaryUrl } from '../../config';
 
 const RescuerProfile = () => {
   const { user, updateProfile } = useAuth();
@@ -111,7 +111,7 @@ const RescuerProfile = () => {
           <div className="relative group">
             <div className="w-14 h-14 bg-navy-50 dark:bg-navy-900/30 rounded-full flex items-center justify-center overflow-hidden">
               {preview ? (
-                <img src={preview.startsWith('http') ? preview : `${API_BASE}${preview}`} alt="Profile" className="w-full h-full object-cover" />
+                <img src={getCloudinaryUrl(preview)} alt="Profile" className="w-full h-full object-cover" />
               ) : (
                 <FaUser className="h-6 w-6 text-navy-800 dark:text-navy-400" />
               )}

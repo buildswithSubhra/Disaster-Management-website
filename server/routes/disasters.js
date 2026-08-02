@@ -16,7 +16,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'reliefops/disasters',
-    allowed_formats: ['jpeg', 'jpg', 'png', 'gif', 'webp'],
+    format: 'jpg',
+    allowed_formats: ['jpeg', 'jpg', 'png', 'gif', 'webp', 'heic', 'heif'],
   },
 });
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 }, fileFilter: (req, file, cb) => { if (file.mimetype.startsWith('image/')) cb(null, true); else cb(new Error('Only image files allowed.')); } });

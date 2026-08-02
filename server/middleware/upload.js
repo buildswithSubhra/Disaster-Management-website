@@ -12,6 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'reliefops/profiles',
+    format: 'jpg',
     allowed_formats: ['jpeg', 'jpg', 'png', 'gif', 'webp', 'heic', 'heif'],
     transformation: [{ width: 300, height: 300, crop: 'fill' }],
   },

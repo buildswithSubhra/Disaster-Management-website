@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { FaThLarge, FaExclamationTriangle, FaUsers, FaUserNinja, FaHospital, FaChartBar, FaBell, FaListAlt, FaUser, FaClipboardList, FaHome, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import { useSidebar } from './ui/sidebar';
-import { API_BASE } from '../config';
+import { API_BASE, getCloudinaryUrl } from '../config';
 
 const SidebarContent = ({ onLinkClick }) => {
   const { isAdmin, isRescuer, user, logout } = useAuth();
@@ -82,7 +82,7 @@ const SidebarContent = ({ onLinkClick }) => {
         <div className="flex items-center gap-2.5 px-2 py-2 mb-2">
           <div className="w-8 h-8 bg-navy-100 dark:bg-navy-800 rounded-full flex items-center justify-center shrink-0 overflow-hidden">
             {user?.profileImage ? (
-              <img src={user.profileImage.startsWith('http') ? user.profileImage : `${API_BASE}${user.profileImage}`} alt="Profile" className="w-full h-full object-cover" />
+              <img src={getCloudinaryUrl(user.profileImage)} alt="Profile" className="w-full h-full object-cover" />
             ) : (
               <span className="text-xs font-bold text-navy-700 dark:text-navy-300">{user?.name?.charAt(0)}</span>
             )}
