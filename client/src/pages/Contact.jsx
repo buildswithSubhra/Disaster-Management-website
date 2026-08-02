@@ -121,9 +121,9 @@ const Contact = () => {
             className="space-y-5"
           >
             {[
-              { icon: FaEnvelope, label: 'Email', value: 'contact@disastermanagement.com' },
-              { icon: FaPhone, label: 'Phone', value: '+91-XXXXXXXXXX' },
-              { icon: FaMapMarkerAlt, label: 'Address', value: 'Your City, India' },
+              { icon: FaEnvelope, label: 'Email', value: 'subhradipd40@gmail.com' },
+              { icon: FaPhone, label: 'Phone', value: '+91-6289197695' },
+              { icon: FaMapMarkerAlt, label: 'Address', value: 'Kolkata, India' },
             ].map((item) => (
               <div key={item.label} className="bg-navy-900/50 dark:bg-gray-800/50 border border-white/5 dark:border-gray-700 rounded-2xl p-5">
                 <div className="flex items-center gap-3 mb-2">
