@@ -12,17 +12,14 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'reliefops/profiles',
-    allowed_formats: ['jpeg', 'jpg', 'png', 'gif', 'webp'],
+    allowed_formats: ['jpeg', 'jpg', 'png', 'gif', 'webp', 'heic', 'heif'],
     transformation: [{ width: 300, height: 300, crop: 'fill' }],
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  const allowed = /jpeg|jpg|png|gif|webp/;
-  const extOk = allowed.test(require('path').extname(file.originalname).toLowerCase());
-  const mimeOk = allowed.test(file.mimetype);
-  if (extOk && mimeOk) cb(null, true);
-  else cb(new Error('Only image files (jpeg, jpg, png, gif, webp) are allowed'));
+  if (file.mimetype.startsWith('image/')) cb(null, true);
+  else cb(new Error('Only image files are allowed'));
 };
 
 const upload = multer({
