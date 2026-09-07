@@ -1,48 +1,48 @@
 const User = require('../models/User');
 const { generateToken } = require('../utils/helpers');
-const { OAuth2Client } = require('google-auth-library');
+const { initializeApp, cert, getApps } = require('firebase-admin');
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+if (!getApps().length) {
+  initializeApp({
+    credential: cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    }),
+  });
+}
+
+const { getAuth } = require('firebase-admin/auth');
 
 exports.googleAuth = async (req, res) => {
   try {
-    const { credential, role } = req.body;
+    const { idToken, role } = req.body;
 
-    if (!credential) {
-      return res.status(400).json({ success: false, message: 'Google credential is required.' });
+    if (!idToken) {
+      return res.status(400).json({ success: false, message: 'Firebase ID token is required.' });
     }
 
-    // Verify Google token
-    const ticket = await client.verifyIdToken({
-      idToken: credential,
-      audience: process.env.GOOGLE_CLIENT_ID,
-    });
+    const decodedToken = await getAuth().verifyIdToken(idToken);
+    const { uid: firebaseUid, email, name, picture } = decodedToken;
 
-    const payload = ticket.getPayload();
-    const { sub: googleId, email, name, picture } = payload;
-
-    // Check if user already exists with this Google ID
-    let user = await User.findOne({ googleId });
+    let user = await User.findOne({ googleId: firebaseUid });
 
     if (!user) {
-      // Check if user exists with this email
       user = await User.findOne({ email });
 
       if (user) {
-        // Link Google account to existing user
-        user.googleId = googleId;
-        user.authProvider = 'google';
+        user.googleId = firebaseUid;
+        user.authProvider = 'firebase';
         if (picture && !user.profileImage) {
           user.profileImage = picture;
         }
         await user.save();
       } else {
-        // Create new user
         user = await User.create({
-          name,
+          name: name || email?.split('@')[0] || 'User',
           email,
-          googleId,
-          authProvider: 'google',
+          googleId: firebaseUid,
+          authProvider: 'firebase',
           profileImage: picture || '',
           phone: '',
           role: role || 'user',
@@ -55,11 +55,11 @@ exports.googleAuth = async (req, res) => {
 
     res.json({
       success: true,
-      message: 'Google authentication successful.',
+      message: 'Firebase authentication successful.',
       data: { user: user.toJSON(), token }
     });
   } catch (error) {
-    console.error('Google auth error:', error);
-    res.status(500).json({ success: false, message: 'Google authentication failed.', error: error.message });
+    console.error('Firebase auth error:', error);
+    res.status(500).json({ success: false, message: 'Firebase authentication failed.', error: error.message });
   }
 };

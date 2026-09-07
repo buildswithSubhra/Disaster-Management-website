@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   address: { type: String, default: '' },
   profileImage: { type: String, default: '' },
   googleId: { type: String, default: null },
-  authProvider: { type: String, enum: ['local', 'google'], default: 'local' },
+  authProvider: { type: String, enum: ['local', 'google', 'firebase'], default: 'local' },
   status: { type: String, enum: ['active', 'inactive', 'suspended'], default: 'active' }
 }, { timestamps: true });
 

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaGoogle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useAuth } from '../context/AuthContext';
 import AuthLayout from '../layouts/AuthLayout';
 import GlowButton from '../components/GlowButton';
-import GoogleSignIn from '../components/GoogleSignIn';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,13 +25,13 @@ const Login = () => {
     } finally { setLoading(false); }
   };
 
-  const handleGoogleSuccess = async (credential) => {
+  const handleGoogleSuccess = async () => {
     try {
-      const user = await googleLogin(credential);
+      const user = await googleLogin();
       toast.success('Welcome back!');
       navigate(user.role === 'admin' ? '/admin/dashboard' : user.role === 'rescuer' ? '/rescuer/dashboard' : '/user/dashboard');
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Google login failed.');
+      toast.error(err.message || 'Google login failed.');
     }
   };
 
@@ -54,7 +53,16 @@ const Login = () => {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="mb-6"
         >
-          <GoogleSignIn onSuccess={handleGoogleSuccess} text="Sign in with Google" />
+          <motion.button
+            type="button"
+            onClick={handleGoogleSuccess}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors cursor-pointer"
+          >
+            <FaGoogle className="h-5 w-5 text-red-500" />
+            Sign in with Google
+          </motion.button>
         </motion.div>
 
         {/* Divider */}

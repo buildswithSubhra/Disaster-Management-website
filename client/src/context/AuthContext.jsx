@@ -1,4 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
 import api from '../services/api';
 
 const AuthContext = createContext(null);
@@ -59,8 +61,10 @@ export const AuthProvider = ({ children }) => {
     return userData;
   };
 
-  const googleLogin = async (credential) => {
-    const response = await api.post('/auth/google', { credential });
+  const googleLogin = async () => {
+    const result = await signInWithPopup(auth, googleProvider);
+    const idToken = await result.user.getIdToken();
+    const response = await api.post('/auth/google', { idToken });
     const payload = response.data.data || response.data;
     const newToken = payload.token;
     const userData = payload.user;
@@ -77,7 +81,8 @@ export const AuthProvider = ({ children }) => {
     return newUser;
   };
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    try { await signOut(auth); } catch (_) {}
     localStorage.removeItem('token');
     setToken(null);
     setUser(null);
